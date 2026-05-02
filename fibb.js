@@ -5,7 +5,6 @@ function fib_normal (num) {
         console.log("gimme positiv ints")
         return
     }
-    console.log("hello")
     for (let i = 0; i < num - 2; i++) {
         array.push(array[i] + array[i + 1])
     }
@@ -20,5 +19,3 @@ function fib_recurse (num, arr = [0, 1]) {
     new_arr.push(arr[arr.length - 1] + arr[arr.length - 2])
     return fib_recurse(num, new_arr)
 }
-
-console.log(fib_recurse(8))
