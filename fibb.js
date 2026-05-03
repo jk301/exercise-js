@@ -12,10 +12,13 @@ function fib_normal (num) {
 }
 
 function fib_recurse (num, arr = [0, 1]) {
-    num = num - 1
     const new_arr = [...arr]
-    if (num === 1) return new_arr 
+    num = num - 1
+    if (num === 1) return new_arr
+    if (num <= 0) return [new_arr[0]]
 
     new_arr.push(arr[arr.length - 1] + arr[arr.length - 2])
     return fib_recurse(num, new_arr)
 }
+
+console.log(fib_recurse(8))
