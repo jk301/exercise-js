@@ -57,7 +57,7 @@ export function linkedList () {
     }
 
     function getTail () {
-        if (!head) return 
+        if (!head) return undefined
 
         let curr = head
         while (curr.nextNode !== null) {
@@ -72,7 +72,7 @@ export function linkedList () {
         let count = 0
         let curr = head
         while (count !== val) {
-            if (curr.nextNode === null) return
+            if (curr.nextNode === null) return undefined
             curr = curr.nextNode
             count++
         }
@@ -115,8 +115,7 @@ export function linkedList () {
 
     function toString() {
         if (!head) {
-            console.log("its all empty,  head -> ", head)
-            return undefined
+            return ""
         }
 
         let curr = head
