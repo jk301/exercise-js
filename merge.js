@@ -1,4 +1,4 @@
-function mergeSort (array) {
+export function mergeSort (array) {
     if (array.length <= 1) {
         return array
     }
@@ -39,6 +39,6 @@ function mergeSort (array) {
     return sortedList
 }
 
-const arr = [100, 23, 47, 8, 56, 12, 89, 34, 71, 5]
+// const arr = [100, 23, 47, 8, 56, 12, 89, 34, 71, 5]
 
-console.log(mergeSort(arr))
+// console.log(mergeSort(arr))

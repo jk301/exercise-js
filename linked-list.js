@@ -1,11 +1,11 @@
-function Node (value = null) {
+export function Node (value = null) {
     return {
         value,
         nextNode : null
     }
 }
 
-function linkedList () {
+export function linkedList () {
     let head = null
 
     function append (value) {
@@ -13,7 +13,7 @@ function linkedList () {
         // assign to head if it is the first one
         if (!head) {
             head = newNode
-            return
+            return 
         }
         // assigning nextNode value
         let curr = head
@@ -39,7 +39,7 @@ function linkedList () {
 
     function size () {
         if (!head) {
-            return
+            return 0
         }
 
         let count = 0
@@ -52,7 +52,7 @@ function linkedList () {
     }
 
     function getHead () {
-        if (!head) return
+        if (!head) return undefined
         return head.value
     }
 
@@ -67,20 +67,20 @@ function linkedList () {
     }
 
     function at (val) {
-        if (val < 0 || !head || typeof val !== "number") return
+        if (val < 0 || !head || typeof val !== "number") return undefined
 
         let count = 0
         let curr = head
         while (count !== val) {
+            if (curr.nextNode === null) return
             curr = curr.nextNode
             count++
         }
-        if (curr === null) return
         return curr.value
     }
 
     function contains (val) {
-        if (!head) return 
+        if (!head) return false
 
         let curr = head
         while(curr !== null) {
@@ -91,7 +91,7 @@ function linkedList () {
     }
 
     function findIndex (val) {
-        if (!head) return
+        if (!head) return -1
 
         let count = 0
         let curr = head
@@ -102,11 +102,11 @@ function linkedList () {
             count++
             curr = curr.nextNode
         }
-        return (-1)
+        return -1
     }
 
     function pop () {
-        if (!head) return
+        if (!head) return undefined
 
         let deleted = head.value
         head = head.nextNode
@@ -116,7 +116,7 @@ function linkedList () {
     function toString() {
         if (!head) {
             console.log("its all empty,  head -> ", head)
-            return
+            return undefined
         }
 
         let curr = head
@@ -126,13 +126,14 @@ function linkedList () {
             curr = curr.nextNode
         }
         str += `null`
-        console.log(str)
+        return str
     }
 
     function insertAt (index, ...values) {
-        if (index < 0) return RangeError
+        if (index < 0) throw new RangeError
 
         if (index === 0) {
+            if (values.length === 0) return
             let newHead = null
             let last = null
 
@@ -170,7 +171,33 @@ function linkedList () {
             count++
             curr = curr.nextNode
         }
-        return RangeError
+        throw new RangeError
+    }
+
+    function removeAt (index) {
+        if (!head) return undefined
+        if (index < 0) throw new RangeError
+
+        if (index === 0) {
+            let removed = head.value
+            head = head.nextNode
+            return removed
+        }
+
+        let count = 0
+        let curr = head
+        let last = null
+
+        while (curr !== null) {
+            if (count === index) {
+                last.nextNode = curr.nextNode
+                return curr.value
+            }
+            count++
+            last = curr
+            curr = curr.nextNode
+        }
+        throw new RangeError
     }
 
     return {
@@ -185,36 +212,6 @@ function linkedList () {
         pop,
         toString,
         insertAt,
+        removeAt,
     }
 }
-
-
-// Testing it here (don't want to create addditional files)
-// just run this file using node
-
-const list = linkedList()
-
-list.append("dog")
-list.append("catto")
-list.append("humano")
-
-list.prepend("cell")
-
-list.toString()
-console.log("The size is -> " + list.size())
-console.log(`The head is -> ${list.getHead()}`)
-console.log(`The tail is -> ${list.getTail()}`)
-console.log(`At index 2 the value is -> ${list.at(2)}`)
-
-console.log("Does dog contains in the list ? -> " + list.contains("dog"))
-console.log("Does t-rex contains in the list ? -> " + list.contains("t-rex"))
-console.log(`The index of dog would be ${list.findIndex("dog")}`)
-
-list.toString()
-console.log(`deleting the head value -> ${list.pop()}`)
-list.toString()
-
-
-console.log("inserting a few friends")
-list.insertAt(1, "dog's friend", "dog's additional friend")
-list.toString()

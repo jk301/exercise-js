@@ -1,4 +1,4 @@
-function fib_normal (num) {
+export function fib_normal (num) {
     const array = [0, 1]
     if (num === 1) return [array[0]]
     if (num < 1) {
@@ -11,7 +11,7 @@ function fib_normal (num) {
     return array
 }
 
-function fib_recurse (num, arr = [0, 1]) {
+export function fib_recurse (num, arr = [0, 1]) {
     const new_arr = [...arr]
     num = num - 1
     if (num === 1) return new_arr
@@ -21,4 +21,4 @@ function fib_recurse (num, arr = [0, 1]) {
     return fib_recurse(num, new_arr)
 }
 
-console.log(fib_recurse(8))
+// console.log(fib_recurse(8))
