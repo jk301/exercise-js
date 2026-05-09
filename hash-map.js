@@ -142,7 +142,7 @@ export function HashMap () {
         const capLimit = capacity * loadFactor
         const buckLength = length()
 
-        if (buckLength >= capLimit) {
+        if (buckLength > capLimit) {
             const oldBucket = entries()
             capacity *= 2
             buckets = new Array(capacity)
