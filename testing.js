@@ -1,30 +1,51 @@
-import { Node, linkedList } from "./linked-list.js";
+import { HashMap } from "./hash-map.js";
 
-const list = linkedList()
+const test = HashMap()
 
-list.append("dog")
-list.append("catto")
-list.append("humano")
-list.prepend("cell")
+// Basic set and get
+test.set("name", "Alice")
+test.set("age", 30)
+test.set("city", "London")
 
-console.log(list.toString())
-console.log("The size is -> " + list.size())
-console.log(`The head is -> ${list.getHead()}`)
-console.log(`The tail is -> ${list.getTail()}`)
-console.log(`At index 2 the value is -> ${list.at(2)}`)
+// Update existing key
+test.set("name", "Bob")
+console.log("updated name: " + test.get("name")) 
 
-console.log("Does dog contains in the list ? -> " + list.contains("dog"))
-console.log("Does t-rex contains in the list ? -> " + list.contains("t-rex"))
-console.log(`The index of dog would be ${list.findIndex("dog")}`)
+// Get existing
+console.log("getting age: " + test.get("age"))
 
-console.log(list.toString())
-console.log(`deleting the head value -> ${list.pop()}`)
-console.log(list.toString())
+// Get non-existing
+console.log("getting ghost: " + test.get("ghost"))
+// Has
+console.log("has city: " + test.has("city"))
+console.log("has ghost: " + test.has("ghost"))
 
+// Remove
+console.log("removing city: " + test.remove("city"))
+console.log("getting city after remove: " + test.get("city"))
+console.log("removing ghost: " + test.remove("ghost"))
 
-console.log("inserting friends")
-list.insertAt(1, "dog's friend", "dog's additional friend")
-console.log(list.toString())
-console.log("removing additional friends")
-list.removeAt(2)
-console.log(list.toString())
+// Length
+console.log("length: " + test.length())
+
+// Trigger resize
+test.set("a", 1)
+test.set("b", 2)
+test.set("c", 3)
+test.set("d", 4)
+test.set("e", 5)
+test.set("f", 6)
+test.set("g", 7)
+test.set("h", 8)
+test.set("i", 9)
+test.set("j", 10)
+console.log("bucket size after resize: " + test.seeBucket().length)
+
+// Data still intact after resize
+console.log("getting name after resize: " + test.get("name"))
+console.log("getting age after resize: " + test.get("age"))
+
+// Clear
+test.clear()
+console.log("length after clear: " + test.length())
+console.log("getting name after clear: " + test.get("name"))
