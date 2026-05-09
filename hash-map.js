@@ -1,5 +1,5 @@
 
-// use this when accesing bucket through index
+// use this when accesing bucket through index (Update : didn't need it)
 // if (index < 0 || index >= buckets.length) {
 //   throw new Error("Trying to access index out of bounds");
 // }
