@@ -2,50 +2,49 @@ import { HashMap } from "./hash-map.js";
 
 const test = HashMap()
 
-// Basic set and get
-test.set("name", "Alice")
-test.set("age", 30)
-test.set("city", "London")
+// populate
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+console.log("length at full capacity: " + test.length())
+console.log("bucket size at full capacity: " + test.seeBucket().length)
 
-// Update existing key
-test.set("name", "Bob")
-console.log("updated name: " + test.get("name")) 
+// overwrite existing
+test.set('apple', 'green')
+test.set('banana', 'brown')
+console.log("overwritten apple: " + test.get('apple'))
+console.log("overwritten banana: " + test.get('banana'))
+console.log("length after overwrite: " + test.length())
 
-// Get existing
-console.log("getting age: " + test.get("age"))
-
-// Get non-existing
-console.log("getting ghost: " + test.get("ghost"))
-// Has
-console.log("has city: " + test.has("city"))
-console.log("has ghost: " + test.has("ghost"))
-
-// Remove
-console.log("removing city: " + test.remove("city"))
-console.log("getting city after remove: " + test.get("city"))
-console.log("removing ghost: " + test.remove("ghost"))
-
-// Length
-console.log("length: " + test.length())
-
-// Trigger resize
-test.set("a", 1)
-test.set("b", 2)
-test.set("c", 3)
-test.set("d", 4)
-test.set("e", 5)
-test.set("f", 6)
-test.set("g", 7)
-test.set("h", 8)
-test.set("i", 9)
-test.set("j", 10)
+// trigger resize
+test.set('moon', 'silver')
+console.log("length after resize: " + test.length())
 console.log("bucket size after resize: " + test.seeBucket().length)
 
-// Data still intact after resize
-console.log("getting name after resize: " + test.get("name"))
-console.log("getting age after resize: " + test.get("age"))
+// overwrite after resize
+test.set('moon', 'gold')
+test.set('lion', 'silver')
+console.log("overwritten moon: " + test.get('moon'))
+console.log("overwritten lion: " + test.get('lion'))
+console.log("length after overwrite: " + test.length())
 
-// Clear
+// test all methods
+console.log("get carrot: " + test.get('carrot'))
+console.log("has dog: " + test.has('dog'))
+console.log("has ghost: " + test.has('ghost'))
+console.log("remove frog: " + test.remove('frog'))
+console.log("length after remove: " + test.length())
+console.log("keys: " + test.keys())
+console.log("values: " + test.values())
+console.log("entries: " + test.entries())
 test.clear()
 console.log("length after clear: " + test.length())
-console.log("getting name after clear: " + test.get("name"))
