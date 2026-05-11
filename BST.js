@@ -89,15 +89,50 @@ function Tree (array) {
         return node
     }
 
-    function levelOrderForEach (callback, node = root) {
-        if (callback === null) throw new Error('callback is required')
-        if (node === null) return 
+    function levelOrderForEach (callback) {
+        if (typeof callback !== "function") throw new Error('callback function is required')
+        if (root === null) return 
 
-        
+        let iterator_array = [root]
+
+        while (iterator_array.length > 0) {
+            const extract = iterator_array.shift()
+            callback(extract.value)
+
+            if (extract.left !== null) iterator_array.push(extract.left)
+            if (extract.right !== null) iterator_array.push(extract.right)
+        }
+    }
+
+    function inOrderForEach (callback) {
+        if (typeof callback !== "function") throw new Error('callback function is required')
+        if (root === null) return 
+
+        let itr_arr = []
 
 
     }
 
+    function preOrderForEach (callback) {
+        if (typeof callback !== "function") throw new Error('callback function is required')
+        if (root === null) return 
+
+        let itr_arr = [root]
+
+        while (itr_arr.length > 0) {
+            const ext = itr_arr.pop()
+            callback(ext.value)
+
+            if (ext.right !== null) itr_arr.push(ext.right)
+            if (ext.left !== null) itr_arr.push(ext.left)
+        }
+    }
+
+    function postOrderforEach (callback) {
+        if (typeof callback !== "function") throw new Error('callback function is required')
+        if (root === null) return 
+
+    }
 
 
     return {
@@ -106,6 +141,8 @@ function Tree (array) {
         includes,
         insert,
         deleteItem,
+        levelOrderForEach,
+        preOrderForEach,
     }
 }
 
@@ -125,3 +162,5 @@ tree.prettyPrint()
 tree.deleteItem(4)
 tree.prettyPrint()
 
+// tree.levelOrderForEach(console.log)
+tree.preOrderForEach(console.log)
