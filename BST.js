@@ -6,37 +6,122 @@ function Node (value) {
     }
 }
 
-
-// const prettyPrint = (node, prefix = '', isLeft = true) => {
-//   if (node === null || node === undefined) {
-//     return;
-//   }
-
-//   prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-//   console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-//   prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-// }
-
-
 function Tree (array) {
     let root = null
+    array = [...new Set(array)]
+    array.sort((a, b) => a - b)
 
-    function buildTree () {
+    function _buildTree (arr, start, end) {
+        if (start > end) return null;
 
+        const mid = Math.floor((start + end) / 2)
+        const newNode = Node(arr[mid])
+
+        newNode.left = _buildTree(arr, start, mid - 1)
+        newNode.right = _buildTree(arr, mid + 1, end)
+
+        return newNode
+    }
+
+    root = _buildTree(array, 0, array.length - 1)
+
+    const prettyPrint = (node = root, prefix = '', isLeft = true) => {
+        if (node === null || node === undefined) {
+            return;
+        }
+
+        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+
+    function includes (value, node = root) {
+        if (node === null) return false
+        if (value === node.value) return true
+
+        if (value < node.value) {
+            return includes(value, node.left)
+        } else if (value > node.value) {
+            return includes(value, node.right)
+        }
+
+        return false
+    }
+
+    function insert(value, node = root) {
+        if (node === null) return
+        if (value === node.value) return
+
+        if (value < node.value) {
+            if (node.left === null) node.left = Node(value)
+            else insert(value, node.left)
+        } else {
+            if (node.right === null) node.right = Node(value)
+            else insert(value, node.right)
+        }
+    }
+
+    function _getSuccessor(curr) {
+        curr = curr.right
+        while (curr !== null && curr.left !== null)
+            curr = curr.left
+        return curr
+    }
+
+    function deleteItem (value, node = root) {
+        if (node === null) return
+
+        if (value < node.value) {
+            node.left = deleteItem(value, node.left)
+        } else if (value > node.value) {
+            node.right = deleteItem(value, node.right)
+        } else {
+            if (node.left === null) {
+                return node.right
+            } else if (node.right === null) {
+                return node.left
+            }
+
+            const succ = _getSuccessor(node)
+            node.value = succ.value
+            node.right = deleteItem(succ.value, node.right)
+        }
+        return node
+    }
+
+    function levelOrderForEach (callback, node = root) {
+        if (callback === null) throw new Error('callback is required')
+        if (node === null) return 
+
+        
+
+
+    }
+
+
+
+    return {
+        _buildTree,
+        prettyPrint,
+        includes,
+        insert,
+        deleteItem,
     }
 }
 
+
+// Driver
+
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-arr = [...new Set(arr)]
-arr.sort((a, b) => a - b)
 
-const mid = Math.floor((0 + arr.length - 1) / 2)
-const nod = Node()
-nod.node = arr[mid]
-nod.left = arr.slice(0, mid)
-nod.right = arr.slice(mid + 1)
+const tree = Tree(arr)
 
-console.log(`Full array -> ${arr}`)
-console.log("node -> " + nod.node)
-console.log("left array -> " + nod.left)
-console.log("right array -> " + nod.right)
+console.log(tree.includes(23))
+console.log(tree.includes(69))
+
+tree.insert(420)
+tree.prettyPrint()
+
+tree.deleteItem(4)
+tree.prettyPrint()
+
