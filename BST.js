@@ -1,4 +1,4 @@
-function Node (value) {
+export function Node (value) {
     return {
         value,
         left : null,
@@ -6,7 +6,7 @@ function Node (value) {
     }
 }
 
-function Tree (array) {
+export function Tree (array) {
     let root = null
     array = [...new Set(array)]
     array.sort((a, b) => a - b)
@@ -242,31 +242,3 @@ function Tree (array) {
     }
 }
 
-
-// Driver
-
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-
-const tree = Tree(arr)
-
-console.log(tree.includes(23))
-console.log(tree.includes(69))
-
-tree.insert(420)
-// tree.prettyPrint()
-
-tree.deleteItem(4)
-// tree.prettyPrint()
-
-// tree.levelOrderForEach(console.log)
-// tree.preOrderForEach(console.log)
-// tree.inOrderForEach(console.log)
-// tree.postOrderforEach(console.log)
-
-// console.log(tree.depth(5))
-// console.log(tree.height(67))
-tree.prettyPrint()
-console.log(tree.isBalanced())
-tree.reBalance()
-tree.prettyPrint()
-console.log(tree.isBalanced())
