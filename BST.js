@@ -227,7 +227,6 @@ function Tree (array) {
 
 
     return {
-        _buildTree,
         prettyPrint,
         includes,
         insert,
@@ -239,7 +238,7 @@ function Tree (array) {
         depth,
         height,
         isBalanced,
-        reBalance
+        reBalance,
     }
 }
 
