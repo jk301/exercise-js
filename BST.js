@@ -145,6 +145,50 @@ function Tree (array) {
         postOrder(root)
     }
 
+    function depth (value) {
+        if (root === null) return undefined
+
+        let level = 0
+        let currNode = root
+        while (currNode.value !== value) {
+            if (value < currNode.value) {
+                level++
+                currNode = currNode.left
+            } else if (value > currNode.value) {
+                level++
+                currNode = currNode.right
+            }
+            if (currNode === null) return undefined
+        }
+        return level
+
+    }
+
+    function _longestChild (node) {
+        if (node.left === null && node.right === null) return 0
+        let left = 0
+        let right = 0
+        if (node.left !== null) left = _longestChild(node.left)
+        if (node.right !== null) right = _longestChild(node.right)
+
+        return 1 + Math.max(left, right)
+    }
+
+    function height (value) {
+        if (root === null) return undefined
+
+        let currNode = root
+        while (value !== currNode.value) {
+            if (value < currNode.value) currNode = currNode.left
+            else if (value > currNode.value) currNode = currNode.right
+
+            if (currNode === null) return undefined
+        }
+
+        const level = _longestChild(currNode)
+        return level
+    }
+
 
     return {
         _buildTree,
@@ -156,6 +200,8 @@ function Tree (array) {
         preOrderForEach,
         inOrderForEach,
         postOrderforEach,
+        depth,
+        height,
     }
 }
 
@@ -178,4 +224,7 @@ tree.prettyPrint()
 // tree.levelOrderForEach(console.log)
 // tree.preOrderForEach(console.log)
 // tree.inOrderForEach(console.log)
-tree.postOrderforEach(console.log)
+// tree.postOrderforEach(console.log)
+
+console.log(tree.depth(5))
+console.log(tree.height(67))
