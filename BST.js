@@ -108,8 +108,17 @@ function Tree (array) {
         if (typeof callback !== "function") throw new Error('callback function is required')
         if (root === null) return 
 
-        let itr_arr = []
+        function innerOrder (node = root) {
+            if (node.left !== null) {
+                innerOrder(node.left)
+            }
+            callback(node.value)
+            if (node.right !== null) {
+                innerOrder(node.right)
+            }
+        }
 
+        innerOrder(root)
 
     }
 
@@ -143,6 +152,7 @@ function Tree (array) {
         deleteItem,
         levelOrderForEach,
         preOrderForEach,
+        inOrderForEach,
     }
 }
 
@@ -163,4 +173,5 @@ tree.deleteItem(4)
 tree.prettyPrint()
 
 // tree.levelOrderForEach(console.log)
-tree.preOrderForEach(console.log)
+// tree.preOrderForEach(console.log)
+tree.inOrderForEach(console.log)
