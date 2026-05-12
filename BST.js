@@ -165,6 +165,7 @@ function Tree (array) {
     }
 
     function _longestChild (node) {
+        if (node === null) return
         if (node.left === null && node.right === null) return 0
         let left = 0
         let right = 0
@@ -189,6 +190,41 @@ function Tree (array) {
         return level
     }
 
+    function isBalanced (node = root) {
+        if (node === null) return true
+
+        let left = -1
+        let right = -1
+
+        let rightCheck = true
+        let leftCheck = true
+        if (node.left !== null) {
+            leftCheck = isBalanced(node.left)
+            left = _longestChild(node.left)
+        }
+
+        if (node.right !== null) {
+            rightCheck = isBalanced(node.right)
+            right = _longestChild(node.right)
+        }
+        
+        if (rightCheck === false || leftCheck === false) return false
+        if ((left - right) === 0 || (left - right) === 1 || (left - right) === -1) return true
+        else return false
+    }
+
+    function reBalance () {
+        if (root === null) return null
+
+        let oldArray = []
+        function pusher (element) {
+            oldArray.push(element)
+        }
+
+        inOrderForEach(pusher)
+        root = _buildTree(oldArray, 0, oldArray.length - 1)
+    }
+
 
     return {
         _buildTree,
@@ -202,6 +238,8 @@ function Tree (array) {
         postOrderforEach,
         depth,
         height,
+        isBalanced,
+        reBalance
     }
 }
 
@@ -216,15 +254,20 @@ console.log(tree.includes(23))
 console.log(tree.includes(69))
 
 tree.insert(420)
-tree.prettyPrint()
+// tree.prettyPrint()
 
 tree.deleteItem(4)
-tree.prettyPrint()
+// tree.prettyPrint()
 
 // tree.levelOrderForEach(console.log)
 // tree.preOrderForEach(console.log)
 // tree.inOrderForEach(console.log)
 // tree.postOrderforEach(console.log)
 
-console.log(tree.depth(5))
-console.log(tree.height(67))
+// console.log(tree.depth(5))
+// console.log(tree.height(67))
+tree.prettyPrint()
+console.log(tree.isBalanced())
+tree.reBalance()
+tree.prettyPrint()
+console.log(tree.isBalanced())
