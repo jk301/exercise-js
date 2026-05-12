@@ -109,17 +109,12 @@ function Tree (array) {
         if (root === null) return 
 
         function innerOrder (node = root) {
-            if (node.left !== null) {
-                innerOrder(node.left)
-            }
+            if (node.left !== null) innerOrder(node.left)
             callback(node.value)
-            if (node.right !== null) {
-                innerOrder(node.right)
+            if (node.right !== null) innerOrder(node.right)
             }
-        }
 
         innerOrder(root)
-
     }
 
     function preOrderForEach (callback) {
@@ -141,6 +136,13 @@ function Tree (array) {
         if (typeof callback !== "function") throw new Error('callback function is required')
         if (root === null) return 
 
+        function postOrder (node = root) {
+            if (node.left !== null) postOrder(node.left)
+            if (node.right !== null) postOrder(node.right)
+            callback(node.value)
+            }
+
+        postOrder(root)
     }
 
 
@@ -153,6 +155,7 @@ function Tree (array) {
         levelOrderForEach,
         preOrderForEach,
         inOrderForEach,
+        postOrderforEach,
     }
 }
 
@@ -174,4 +177,5 @@ tree.prettyPrint()
 
 // tree.levelOrderForEach(console.log)
 // tree.preOrderForEach(console.log)
-tree.inOrderForEach(console.log)
+// tree.inOrderForEach(console.log)
+tree.postOrderforEach(console.log)
